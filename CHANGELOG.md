@@ -7,6 +7,81 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-09-09
+
+> Tracks [punit 0.10.0](https://github.com/mavai-org/punit/blob/main/CHANGELOG.md#0100---2026-09-07):
+> the declarative authoring surface, punit-lm, and the shared `mavai`
+> renderer. This release makes each of them demonstrable straight from
+> these examples, and removes what they made redundant.
+
+### Added
+
+- **The declarative worked example — start here.** The shopping-basket
+  scenario stated as two YAML files and a one-line test:
+  `shopping-basket.yaml` (a `mavai-contract/1` file with one thresholded
+  criterion over a `json` view, judged per path) and `mavai-services.yaml`
+  (a `language-model` service with a structured-output `response-schema:`,
+  a temperature exploration and a `prompt-engineer` optimization), with
+  `PUnit.declared().assertPasses()` as the whole test and **no bindings
+  class at all**. A bundled stub endpoint speaking the ollama wire shape
+  stands in for the model, so the example runs offline through the real
+  punit-lm path — request encoding, capability gates, usage extraction —
+  and the explore and optimize artefacts carry token totals in their cost
+  blocks. `./gradlew mavaiCheck` validates the pair with zero samples;
+  `./gradlew mavaiMaterialise` emits the equivalent `ServiceContract` class
+  when the file runs out of room. The README teaches this path first.
+- **A publication-hygiene check in CI.** Tracked per-machine tool state and
+  machine-local filesystem paths fail the build, so an authoring-machine
+  path can no longer reach a published file.
+
+### Changed
+
+- **Bumped punit to 0.10.0** (`punit-core`, `punit-decl`, `punit-lm`,
+  `punit-report`, and the `org.mavai.punit` Gradle plugin). punit-decl and
+  punit-lm are new dependencies; punit-lm is a main dependency, since the
+  service contract now speaks to language models through it.
+- **The examples speak to language models through punit-lm; their own
+  gateway is gone.** The `org.mavai.punit.examples.app.llm` package —
+  `ChatLlm`, its provider and routing wrapper, the OpenAI and Anthropic HTTP
+  clients, the failure classifier and the mock — is deleted. What stays is
+  example-owned, in a new `org.mavai.punit.examples.lm` package:
+  `MockLanguageModel`, the mock on punit-lm's public `LanguageModel`
+  interface with the temperature-dependent deviation model, failure modes
+  and token estimate it always had, one instance per factor bundle; and
+  `LanguageModelMode`, the `punit.llm.mode` / `PUNIT_LLM_MODE` switch
+  (default `mock`). In `real` mode the provider follows the model name
+  (`claude-*` → Anthropic, else OpenAI) and punit-lm reads the credential
+  the way a services file would: `MAVAI_LLM_API_KEY`, else `OPENAI_API_KEY`
+  or `ANTHROPIC_API_KEY`. The example-owned key properties and base-URL
+  settings are gone with the clients. The shopping-basket contract records
+  the usage each reply states, passes a failed delivery through under
+  punit-lm's delivery-cause vocabulary, and declares as covariates whatever
+  the model states about its configuration, so a mock baseline never
+  silently matches a real run. The committed reference baseline is
+  regenerated and shows the new covariate keys.
+- **Reports render with the shared `mavai` tool.** punit 0.10.0 drops its
+  `punitReport` task; `mavai verdict build/reports/punit -o
+  build/reports/punit/verdict.html` draws the verdict report from the
+  emitted artefacts, and the explore and optimize reports follow the same
+  pattern. The README's run instructions follow.
+- **Path checks inherit the criterion's parsed view.** The declarative
+  example's postconditions no longer repeat `in: actions`; a path-bearing
+  check that omits `in:` resolves against the owning criterion's single
+  `parses:` view.
+- Cross-reference anchor tokens renamed from `javai-ref:` to `mavai-ref:`.
+
+### Documentation
+
+- README: the declarative path first; a language-model mode section; the
+  project-structure sketch names `servicecontracts/` and the new `lm/`
+  package.
+- User guide: the real-mode section describes punit-lm's credential tier;
+  cross-repo links point at the punit guide's current part numbers; the
+  contract-first description names the shipped `criteria()` surface; one
+  consistent baseline-file story (measure output under
+  `src/test/resources/punit/baselines/`, gitignored, with committed
+  reference copies in `specs-reference/`).
+
 ## [0.7.1] - 2026-07-01
 
 > Tracks [punit 0.9.3](https://github.com/mavai-org/punit/blob/main/CHANGELOG.md#093---2026-06-30):
@@ -302,7 +377,8 @@ tests demonstrating the PUnit framework.
 - Verdict catalogue generation (summary and verbose)
 - User guide documentation
 
-[Unreleased]: https://github.com/javai-org/punitexamples/compare/v0.5.0-alpha5...HEAD
+[Unreleased]: https://github.com/mavai-org/punitexamples/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/mavai-org/punitexamples/compare/v0.7.1...v0.8.0
 [0.5.0-alpha5]: https://github.com/javai-org/punitexamples/compare/v0.5.0-alpha4...v0.5.0-alpha5
 [0.5.0-alpha4]: https://github.com/javai-org/punitexamples/compare/v0.5.0-alpha3...v0.5.0-alpha4
 [0.5.0-alpha3]: https://github.com/javai-org/punitexamples/compare/v0.5.0-alpha2...v0.5.0-alpha3
