@@ -68,7 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   example's postconditions no longer repeat `in: actions`; a path-bearing
   check that omits `in:` resolves against the owning criterion's single
   `parses:` view.
-- Cross-reference anchor tokens renamed from `javai-ref:` to `mavai-ref:`.
+- The cross-reference anchor comments carry the `mavai` prefix (formerly `javai`).
 
 ### Documentation
 
