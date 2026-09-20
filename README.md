@@ -31,12 +31,14 @@ example lives in `src/test/java/org/mavai/punit/examples/declarative/`:
 ./gradlew mavaiCheck                                 # validate the pair, zero samples
 ./gradlew test --tests ShoppingBasketDeclarativeTest # the one-line test
 ./gradlew exp -Prun=ShoppingBasketExperiments        # explore + optimize
+./gradlew punitReport                                # the pages, under build/reports/punit/
 ```
 
 Artefacts land under `build/punit/explorations/` and
 `build/punit/optimizations/` with `totalTokens`/`avgTokensPerSample` in
-their cost blocks — render them with the shared `mavai` tool and the
-cost cells read "ms · tok".
+their cost blocks; `punitReport` draws the comparison pages from them
+with the shared `mavai` renderer, which the plugin brings from Maven
+Central — nothing to install — and the cost cells read "ms · tok".
 
 A service can equally be a **code binding** — one annotated method in a
 conventional `MavaiBindings` class beside the tests:

@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+> Tracks [punit 0.11.0](https://github.com/mavai-org/punit/blob/main/CHANGELOG.md#0110---2026-09-20):
+> `punitReport`, drawing the pages with the `mavai` renderer the plugin
+> resolves from Maven Central.
+
+### Changed
+
+- **punit 0.11.0.** The plugin and the four library artefacts move to
+  0.11.0. `./gradlew punitReport` now draws the verdict, exploration and
+  optimization pages under `build/reports/punit/` — the README's
+  declarative walk-through ends with it, in place of the instruction to
+  install the renderer and run it by hand.
+
 ## [0.8.0] - 2026-09-09
 
 > Tracks [punit 0.10.0](https://github.com/mavai-org/punit/blob/main/CHANGELOG.md#0100---2026-09-07):

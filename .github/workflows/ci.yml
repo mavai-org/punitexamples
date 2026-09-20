@@ -40,6 +40,12 @@ jobs:
         # Successful compilation is the key compatibility indicator.
         run: ./gradlew test --continue || true
 
+      - name: Draw the verdict page
+        # The plugin resolves the family's renderer from Maven Central and
+        # draws the page from the verdict XML the tests wrote; the page is
+        # uploaded with the test results below.
+        run: ./gradlew punitReport
+
       - name: Upload test results
         uses: actions/upload-artifact@v7
         if: always()
@@ -47,5 +53,6 @@ jobs:
           name: test-results-java-${{ matrix.java-version }}
           path: |
             */build/reports/tests/
+            build/reports/punit/*.html
             */build/test-results/
           retention-days: 14
