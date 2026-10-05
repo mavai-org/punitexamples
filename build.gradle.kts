@@ -43,8 +43,8 @@ repositories {
 dependencies {
     // Domain support — Jackson for JSON parsing in domain classes;
     // Outcome for result types; Log4j2 for logging.
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.2")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.22.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.22.3")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.22.3")
     implementation("org.mavai:outcome:1.0.0-alpha1")
     implementation("org.apache.logging.log4j:log4j-api:2.26.1")
     runtimeOnly("org.apache.logging.log4j:log4j-core:2.26.1")
@@ -54,7 +54,7 @@ dependencies {
     // engine, statistics, baselines, runtime entry point. JUnit-free so
     // sentinel-deployable classes can call PUnit.testing(...).assertPasses()
     // without dragging the test harness onto the production classpath.
-    implementation("org.mavai:punit-core:0.11.0")
+    implementation("org.mavai:punit-core:0.12.2")
 
     // Nullability annotations used by use case postcondition methods.
     implementation("org.jspecify:jspecify:1.0.1")
@@ -62,21 +62,21 @@ dependencies {
     // Test stack — JUnit Jupiter directly (punit-core auto-discovers its
     // JUnit extension via ServiceLoader when Jupiter is on the test
     // classpath; punit-report likewise auto-registers its XML VerdictSink).
-    testImplementation("org.mavai:punit-report:0.11.0")
+    testImplementation("org.mavai:punit-report:0.12.2")
 
     // The declarative surface — contract files + PUnit.declared(); the
     // newcomer path the README teaches first.
-    testImplementation("org.mavai:punit-decl:0.11.0")
+    testImplementation("org.mavai:punit-decl:0.12.2")
 
     // The language-model service type (type: language-model in
     // mavai-services.yaml) and the prompt-engineer stepper — the
     // pure-services example needs no other code.
-    implementation("org.mavai:punit-lm:0.11.0")
+    implementation("org.mavai:punit-lm:0.12.2")
     testImplementation(platform("org.junit:junit-bom:5.14.4"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation("org.assertj:assertj-core:3.27.7")
-    testImplementation("com.tngtech.archunit:archunit-junit5:1.5.0")
+    testImplementation("com.tngtech.archunit:archunit-junit5:1.5.1")
 }
 
 tasks.test {
