@@ -7,12 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-> Tracks [punit 0.11.0](https://github.com/mavai-org/punit/blob/main/CHANGELOG.md#0110---2026-09-20):
-> `punitReport`, drawing the pages with the `mavai` renderer the plugin
-> resolves from Maven Central.
+> Tracks [punit 0.15.0](https://github.com/mavai-org/punit/blob/main/CHANGELOG.md#0150---2026-10-13):
+> exact decision rules (methodology 1.6.0), verdict-1.8 records, and the
+> `mavai` 0.23.0 renderer behind `punitReport`.
 
 ### Changed
 
+- **punit 0.15.0.** The plugin and the four library artefacts move from
+  0.11.0 to 0.15.0; the examples compile unchanged. `punitReport` now
+  draws its pages with `mavai` 0.23.0, which reads the verdict-1.8
+  records punit writes and leads each criterion with the rule that
+  decided it.
 - **punit 0.11.0.** The plugin and the four library artefacts move to
   0.11.0. `./gradlew punitReport` now draws the verdict, exploration and
   optimization pages under `build/reports/punit/` — the README's
